@@ -6,7 +6,7 @@ gr()
 
 ## Data retirieval
 begin
-rawdata = read("project2/datasets/Leigh1968_harelynx.csv", DataFrame)
+rawdata = read("Leigh1968_harelynx.csv", DataFrame)
 df = mapcols(x -> Float32.(x .÷ 1000), rawdata[:,[:hare, :lynx]])
 train_size = 20
 df_train = df[1:train_size,:]
