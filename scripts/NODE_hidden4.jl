@@ -1,5 +1,5 @@
-using ComponentArrays, Lux, DiffEqFlux, OrdinaryDiffEq
-using Optimization, OptimizationOptimJL, OptimizationOptimisers
+using ComponentArrays, Lux, OrdinaryDiffEq
+using Optimization, OptimizationOptimisers
 using Random: Xoshiro; using CSV: read
 using Plots, DataFrames
 gr()
