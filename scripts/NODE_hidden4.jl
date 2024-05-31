@@ -1,6 +1,6 @@
-using ComponentArrays, Lux, OrdinaryDiffEq
+using ComponentArrays, Lux, OrdinaryDiffEq, DiffEqFlux
 using Optimization, OptimizationOptimisers
-using Random: Xoshiro; using CSV: read
+using Random: Xoshiro; import CSV: read
 using Plots, DataFrames
 gr()
 
@@ -14,7 +14,7 @@ train_years = rawdata.year[1:train_size]
 
 # Normalize data
 scale = eachcol(df) .|> maximum |> transpose |> Array
-const normalized_data = Array(df_train./scale)'
+normalized_data = Array(df_train./scale)'
 normalized_data' .* scale
 
 #Display our data
@@ -53,8 +53,7 @@ prob_nn = ODEProblem(ude_dynamics!, u0, tspan, p)
 function predict(θ; ODEalg = AutoTsit5(Rosenbrock23()), u0=u0, T = t)
     _prob = remake(prob_nn, u0 = u0 , tspan = (T[1], T[end]), p = θ)
     Array(solve(_prob, ODEalg, saveat = T,
-    abstol = 1f-6, reltol = 1f-6,
-    sensealg=QuadratureAdjoint(autojacvec=ReverseDiffVJP(true))))
+    abstol = 1f-6, reltol = 1f-6))
 end
 
 # Test the speed of several stiff ODE solvers.
@@ -152,8 +151,3 @@ begin
     xlabel!("Year")
     ylabel!("Population (in thousands)")
 end
-
-# Baseline model?
-μ = [sum(test_data[i,:])/57 for i in 1:2]; @show μ;
-@show baseline_MSE = sum(abs2, μ.-test_data)/57;
-@show baseline_average_error = sqrt(baseline_MSE);
