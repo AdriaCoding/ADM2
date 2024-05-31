@@ -153,18 +153,6 @@ begin
     ylabel!("Population (in thousands)")
 end
 
-# Visualize the trained neural network as a 2D function
-
-f(x, y) = begin
-_x, _y = U(Float32.([x,y]), p_trained.NN, st)[1]
-sqrt(_x^2 + _y^2)
-end
-surface(-1:0.01:1, -1:0.01:1, f, c=:viridis, xlabel="Hares", ylabel="Lynx", zlabel="|f(x,y)|")
-f(u) = -f(u[1], u[2])
-using Optim;
-optsol = optimize(f,[0.0, 0.0] );
-println("Maximum value of ||NN|| in the unit square: $(-f(optsol.minimizer))")
-
 # Baseline model?
 μ = [sum(test_data[i,:])/57 for i in 1:2]; @show μ;
 @show baseline_MSE = sum(abs2, μ.-test_data)/57;
