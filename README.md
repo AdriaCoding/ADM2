@@ -1,7 +1,7 @@
 # Second delivery for the ADM project
 #### Jan Herlyn & Adrià Lisa
 
-Under the folder 'scripts' you will find all the codes for the NeuralODE and Lokta-Volterra models, written in Julia. The codes used for the Linear Time Series models, like AR, SARIMA, etc. are all combined in the Jupyter notebook. We provide an explanation on how to run the julia scripts, as it is not as well known as the python notebook.
+Under the folder 'scripts' you will find all the codes for the NeuralODE and Lokta-Volterra models, written in Julia. The codes used for the Linear Time Series models, like AR, SARIMA, etc. are all combined in the `ipynb` notebook. We provide an explanation on how to run the julia scripts, as it is not as well known as the python notebook.
 
 ### Installing Julia
 To install Julia, you can go the [official website](https://julialang.org/downloads/) and follow the appropriate steps for your system. 
