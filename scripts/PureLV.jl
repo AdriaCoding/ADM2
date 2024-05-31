@@ -36,13 +36,13 @@ function lotka_volterra!(du, u, p, t)
     du[2] = dy = -δ * y + γ * x * y
 end
 
+p = rand(rng, 4) .|> Float32
 prob = ODEProblem(lotka_volterra!, u0, tspan, p)
 
 function predict(θ; ODEalg = AutoTsit5(Rosenbrock23()), u0=u0, T = t)
     _prob = remake(prob, u0 = u0 , tspan = (T[1], T[end]), p = θ)
     Array(solve(_prob, ODEalg, saveat = T,
-    abstol = 1f-6, reltol = 1f-6,
-    sensealg=QuadratureAdjoint(autojacvec=ReverseDiffVJP(true))))
+    abstol = 1f-6, reltol = 1f-6))
 end
 
 # Test the speed of several stiff ODE solvers.
@@ -65,7 +65,6 @@ paint(p, plt = dataplot) = begin
     display(predplot)
 end
 
-p = rand(rng, 4) .|> Float32
 paint(p)
 
 function loss(p)
