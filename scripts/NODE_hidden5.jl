@@ -1,4 +1,4 @@
-using ComponentArrays, Lux, DiffEqFlux, OrdinaryDiffEq
+using ComponentArrays, Lux, SciMLSensitivity, OrdinaryDiffEq
 using Optimization, OptimizationOptimisers
 using Random: Xoshiro; using CSV: read
 using Plots, DataFrames
@@ -104,6 +104,7 @@ adtype = Optimization.AutoZygote();
 optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype);
 optprob = Optimization.OptimizationProblem(optf, p);
 losses = Float32[]
+println("Training the model...")
 res1 = Optimization.solve(optprob, ADAM(0.01), callback = callback, maxiters = 500);
 
 

@@ -92,6 +92,7 @@ adtype = Optimization.AutoForwardDiff();
 optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype);
 optprob = Optimization.OptimizationProblem(optf, p);
 losses = Float32[]
+println("Training the model...")
 res1 = Optimization.solve(optprob, ADAM(0.01), callback = callback, maxiters = 3000);
 
 # Set final value for the trained parameters

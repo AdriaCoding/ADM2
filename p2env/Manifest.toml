@@ -2,7 +2,7 @@
 
 julia_version = "1.10.3"
 manifest_format = "2.0"
-project_hash = "e6bbffc13eddb0b5da4c84c43a809a74e8c377d5"
+project_hash = "5831f7f301c815adfb787803e4540aec00d7dfe8"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "daf26bbdec60d9ca1c0003b70f389d821ddb4224"
@@ -442,12 +442,6 @@ version = "3.6.2"
     OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
     Sundials = "c3572dad-4567-51f8-b174-8c6c989267f4"
 
-[[deps.DiffEqFlux]]
-deps = ["ADTypes", "Adapt", "ChainRulesCore", "ConcreteStructs", "DiffEqBase", "Distributions", "DistributionsAD", "ForwardDiff", "Functors", "LinearAlgebra", "Lux", "LuxCore", "PrecompileTools", "Random", "RecursiveArrayTools", "Reexport", "SciMLBase", "SciMLSensitivity", "Setfield", "Tracker", "Zygote", "ZygoteRules"]
-git-tree-sha1 = "a7ef8ad8399093e32dd432985a432c033c0c3d2b"
-uuid = "aae7a2af-3d4f-5e19-a356-7da93b79d9d0"
-version = "3.5.0"
-
 [[deps.DiffEqNoiseProcess]]
 deps = ["DiffEqBase", "Distributions", "GPUArraysCore", "LinearAlgebra", "Markdown", "Optim", "PoissonRandom", "QuadGK", "Random", "Random123", "RandomNumbers", "RecipesBase", "RecursiveArrayTools", "Requires", "ResettableStacks", "SciMLBase", "StaticArraysCore", "Statistics"]
 git-tree-sha1 = "65cbbe1450ced323b4b17228ccd96349d96795a7"
@@ -536,19 +530,6 @@ version = "0.25.109"
     ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
     DensityInterface = "b429d917-457f-4dbc-8f4c-0cc954292b1d"
     Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[[deps.DistributionsAD]]
-deps = ["Adapt", "ChainRules", "ChainRulesCore", "Compat", "Distributions", "FillArrays", "LinearAlgebra", "PDMats", "Random", "Requires", "SpecialFunctions", "StaticArrays", "StatsFuns", "ZygoteRules"]
-git-tree-sha1 = "f4dd7727b07b4b7fff5ff4149118ee06e83dfab7"
-uuid = "ced4e74d-a319-5a8a-b0ac-84af2272839c"
-version = "0.6.55"
-weakdeps = ["ForwardDiff", "LazyArrays", "ReverseDiff", "Tracker"]
-
-    [deps.DistributionsAD.extensions]
-    DistributionsADForwardDiffExt = "ForwardDiff"
-    DistributionsADLazyArraysExt = "LazyArrays"
-    DistributionsADReverseDiffExt = "ReverseDiff"
-    DistributionsADTrackerExt = "Tracker"
 
 [[deps.DocStringExtensions]]
 deps = ["LibGit2"]
