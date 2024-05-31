@@ -14,7 +14,7 @@ train_years = rawdata.year[1:train_size]
 
 # Normalize data
 scale = eachcol(df) .|> maximum |> transpose |> Array
-const normalized_data = Array(df_train./scale)'
+normalized_data = Array(df_train./scale)'
 normalized_data' .* scale
 
 #Display our data
@@ -23,7 +23,7 @@ scatter!(dataplot, train_years, normalized_data[2,:], label="Lynx", color="red",
 end
 
 ## Problem conditions
-rng = Xoshiro(3)
+rng = Xoshiro(4)
 u0 = normalized_data[:,1]
 tspan = Float32.((0.0, train_size-1))
 t = range(tspan[1], tspan[2], length=train_size) |> Array
@@ -139,8 +139,3 @@ begin
     xlabel!("Year")
     ylabel!("Population (in thousands)")
 end
-
-# Baseline model?
-μ = [sum(test_data[i,:])/57 for i in 1:2]; @show μ;
-@show baseline_MSE = sum(abs2, μ.-test_data)/57;
-@show baseline_average_error = sqrt(baseline_MSE);

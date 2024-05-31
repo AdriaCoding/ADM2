@@ -1,5 +1,5 @@
 using ComponentArrays, Lux, DiffEqFlux, OrdinaryDiffEq
-using Optimization, OptimizationOptimJL, OptimizationOptimisers
+using Optimization, OptimizationOptimisers
 using Random: Xoshiro; using CSV: read
 using Plots, DataFrames
 gr()
@@ -14,7 +14,7 @@ train_years = rawdata.year[1:train_size]
 
 # Normalize data
 scale = eachcol(df) .|> maximum |> transpose |> Array
-const normalized_data = Array(df_train./scale)'
+normalized_data = Array(df_train./scale)'
 normalized_data' .* scale
 
 #Display our data
@@ -157,40 +157,3 @@ begin
     xlabel!("Year")
     ylabel!("Population (in thousands)")
 end
-
-
-# EXTRAS
-# Visualize the physics-informed model p_trained.LV = [α, β, δ, γ]
-begin
-    function lotka_volterra!(du, u, p, t)
-        x, y = u
-        α, β, δ, γ = p
-        du[1] = dx = α * x - β * x * y
-        du[2] = dy = -δ * y + γ * x * y
-    end
-    prob = ODEProblem(lotka_volterra!, u0, (0.0f0, 56.0f0), p_trained.LV)
-    physics = solve(prob, Tsit5(), saveat = test_plot_t)
-    hare_physics = physics[1,:] * scale[1]
-    lynx_physics = physics[2,:] * scale[2]
-    plot(finalplot_years, hare_physics, label="Hares (LV)", color="dodgerblue1", lw=1)
-    plot!(finalplot_years, lynx_physics, label="Lynx (LV)", color="firebrick2", lw=1)
-    scatter!(rawdata.year, test_data[1,:], label="Hares", lw=2)
-    scatter!(rawdata.year, test_data[2,:], label="Lynx",  lw=2)
-end
-
-# Visualize the trained neural network as a 2D function
-
-f(x, y) = begin
-_x, _y = U(Float32.([x,y]), p_trained.NN, st)[1]
-sqrt(_x^2 + _y^2)
-end
-surface(-1:0.01:1, -1:0.01:1, f, c=:viridis, xlabel="Hares", ylabel="Lynx", zlabel="|f(x,y)|")
-f(u) = -f(u[1], u[2])
-using Optim
-optsol = optimize(f,[0.0, 0.0] )
-println("Maximum value of ||NN|| in the unit square: $(-f(optsol.minimizer))")
-
-# Baseline model?
-μ = [sum(test_data[i,:])/57 for i in 1:2]; @show μ;
-@show baseline_MSE = sum(abs2, μ.-test_data)/57;
-@show baseline_average_error = sqrt(baseline_MSE);
