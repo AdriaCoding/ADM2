@@ -20,7 +20,25 @@ $ julia
 
 julia>
 ```
-Feel free to play arround with the REPL to be more familiarized with the language. I encourage checking out the [offical documentation manual](https://docs.julialang.org/en/v1/manual/getting-started/), and this [cool tutorial](https://youtu.be/EkgCENBFrAY?si=DTJ3SP1Shm0wYKTk) by Miguel Raz.
+Feel free to play arround with the REPL to be more familiarized with the language. We encourage checking out the [offical documentation manual](https://docs.julialang.org/en/v1/manual/getting-started/), and this [cool tutorial](https://youtu.be/EkgCENBFrAY?si=DTJ3SP1Shm0wYKTk) by Miguel Raz.
 
 ### Instantiating the Virtual Environment
-Our project requires several very specific dependencies. 
+Our project requires a set of very specific dependencies, which are put together in a virtual environment named `p2env`. To activate the environment, open the julia RELP within this project folder, and type the character `]` to open the package manager interface. From there, you can activate it, and then you wil have to instantiate it to download all the packages. 
+
+```
+julia> ]
+(@v1.10) pkg> activate p2env
+(p2env) pkg> instantiate
+```
+Don't be surprised if the precompilation takes several minutes. You may want to go and get a coffee in the meantime ☕.
+
+### Running the scripts
+
+After that, you can press 'return' to go back to the normal interface. Now you are ready to run the scripts via the `include` command.
+```
+julia> include("scripts/PureLV.jl")
+julia> include("scripts/NODE_hidden5.jl")
+julia> include("scripts/NODE_hidden4.jl")
+julia> include("scripts/HybridNODE.jl")
+```
+And that's it! While every script runs you should be getting nice animations on how the training evolves. In the end, you will get the MSE results printed in the REPL, and a final figure with the resulting trajectories.
