@@ -1,5 +1,5 @@
 using ComponentArrays, Lux, DiffEqFlux, OrdinaryDiffEq
-using Optimization, OptimizationOptimJL, OptimizationOptimisers
+using Optimization, OptimizationOptimisers
 using Random: Xoshiro; using CSV: read
 using Plots, DataFrames
 gr()
@@ -14,7 +14,7 @@ train_years = rawdata.year[1:train_size]
 
 # Normalize data
 scale = eachcol(df) .|> maximum |> transpose |> Array
-const normalized_data = Array(df_train./scale)'
+normalized_data = Array(df_train./scale)'
 normalized_data' .* scale
 
 #Display our data
@@ -150,20 +150,3 @@ begin
     xlabel!("Year")
     ylabel!("Population (in thousands)")
 end
-
-# Visualize the trained neural network as a 2D function
-
-f(x, y) = begin
-_x, _y = U(Float32.([x,y]), p_trained.NN, st)[1]
-sqrt(_x^2 + _y^2)
-end
-surface(-1:0.01:1, -1:0.01:1, f, c=:viridis, xlabel="Hares", ylabel="Lynx", zlabel="|f(x,y)|")
-f(u) = -f(u[1], u[2])
- using Optim;
-optsol = optimize(f,[0.0, 0.0] );
-println("Maximum value of ||NN|| in the unit square: $(-f(optsol.minimizer))")
-
-# Baseline model?
-μ = [sum(test_data[i,:])/57 for i in 1:2]; @show μ;
-@show baseline_MSE = sum(abs2, μ.-test_data)/57;
-@show baseline_average_error = sqrt(baseline_MSE);
