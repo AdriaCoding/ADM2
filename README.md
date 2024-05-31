@@ -1,4 +1,6 @@
 # Second delivery for the ADM project
+
+The source github repository is https://github.com/AdriaCoding/ADM2.
 #### Jan Herlyn & Adrià Lisa
 
 Under the folder 'scripts' you will find all the codes for the NeuralODE and Lokta-Volterra models, written in Julia. 
